@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<title>Server Error</title>
+	<link href="/templates/prototype/css/base.css" media="screen,projection" type="text/css" rel="stylesheet" />
+	<link href="/templates/prototype/css/special.css" media="screen,projection" type="text/css" rel="stylesheet" />
+	<link href="/templates/prototype/css/layout.css" media="screen,projection" type="text/css" rel="stylesheet" />
+	<link href="/templates/prototype/favicon.ico" type="image/x-icon" rel="icon" />
+	<script type="text/javascript" src="/templates/prototype/js/jquery.js"></script>
+</head>
+<body id="body">
+
+<div id="page-all">
+	<!-- header start -->
+	<div id="header">
+		<table width="100%" cellspacing="0" cellpadding="0">
+			<tbody><tr style="height:113px;">
+				<td class="pt5 pb5 pl10">
+					<a href="%7B$UrlRoot%7Cdefault:%27#%27%7D">
+						<img style="margin-top: 10px;" alt="IE OS" src="%7B$templatesRoot%7Dimg/ie_logo.png" />
+					</a>
+				</td>
+			</tr>
+		</tbody></table>
+	</div>
+	<div style="background-color:#FFF">
+		<h1 style="padding: 20px; padding-bottom: 0px;">Server Error</h1>
+		<div style="padding: 20px; padding-top: 0px;">
+			<h2>
+				We're sorry! The server has encountered an internal error and was unable to complete your request.
+				Please contact the system administrator for more information.<br />
+				<!--Error time:  -->
+			</h2>
+						<script type="text/javascript">
+				function show() {
+					$("#show").hide();
+					$("#hide").show();
+					$("#detail").show();
+				}
+
+				function hide() {
+					$("#show").show();
+					$("#hide").hide();
+					$("#detail").hide();
+				}
+			</script>
+			<div id="show" style="display: block; text-align: center; padding-top: 10px;"><a href="javascript:show()">Show detail</a></div>
+			<div id="hide" style="display: none; text-align: center; padding-top: 10px;"><a href="javascript:hide()">Hide detail</a></div>
+			<div id="detail" style="display: none; margin: auto; padding-top: 30px; max-width: 800px">
+				Driver_Exception(#1013): Error "MySQL server has gone away" number "2006" in query: SELECT solutions.title as solution_title, solutions.`unique` as solution_unique, CHECK_GROUP_FOR_EMPTY_SENSOR(appliance_groups.id) AS is_have_empty_sensor, ag_app.*, appliance_groups.*
+FROM appliance_groups
+LEFT JOIN solutions  ON id_solution = solutions.id
+LEFT JOIN (
+				SELECT ag_a.id_appliance_group
+				, COUNT(app.id) AS appliance_num
+				, SUM(IF(IFNULL(app_sc.request_result, 1)=1, 0, 1)) AS appliance_down
+				FROM appliances app 
+				LEFT JOIN appliance_status_cache app_sc ON app.id = app_sc.id_appliance 
+				INNER JOIN appliance_groups_appliances ag_a ON app.id = ag_a.id_appliance
+				WHERE app.is_deleted != 1
+				GROUP BY ag_a.id_appliance_group
+			) ag_app ON appliance_groups.id = ag_app.id_appliance_group
+WHERE appliance_groups.company_id IN (SELECT DISTINCT id FROM companies ORDER BY id)				File: /srv/packages/php/DAL/4.0/Classes/db/driver.php				<br />
+				Line: 158				<div class="gray_line mb10 mt4"><!-- --></div>
+				#0 /srv/packages/php/DAL/4.0/Classes/db/driver.php(158): Driver::query()<br />
+#1 /srv/packages/php/DAL/4.0/Classes/db/activerecord.php(401): Driver-&gt;query()<br />
+#2 /srv/packages/php/framework/3.0.0/classes/model.php(297): ActiveRecord-&gt;get()<br />
+#3 /srv/packages/php/framework/3.0.0/classes/model.php(347): Model-&gt;retrieveData()<br />
+#4 /srv/packages/php/ES_application/4.0.0/model/appliancegroup.php(70): Model-&gt;getAllData()<br />
+#5 /srv/packages/php/ES_application/4.0.0/controller/appliancegroup.php(266): ApplianceGroupModel-&gt;getAllData()<br />
+#6 /srv/packages/php/ES_application/4.0.0/library/Aspect/CallerObject.php(42) : eval()'d code(1): ApplianceGroupController-&gt;applianceGroups(Array)<br />
+#7 /srv/packages/php/ES_application/4.0.0/library/Aspect/CallerObject.php(42): unknown()<br />
+#8 /srv/packages/php/ES_application/4.0.0/library/Aspect.php(76): Aspect_CallerObject-&gt;triggerCall()<br />
+#9 /srv/packages/php/ES_application/4.0.0/library/Aspect.php(55): Aspect-&gt;triggerAspectAround()<br />
+#10 /srv/packages/php/ES_application/4.0.0/library/Aspect.php(85): Aspect-&gt;triggerPointcut()<br />
+#11 /srv/packages/php/ES_application/4.0.0/appcontroler.php(261): Aspect-&gt;__call('appliancegroups', Array)<br />
+#12 /srv/packages/php/framework/3.0.0/classes/controller.php(538): AppController-&gt;processAction()<br />
+#13 /srv/packages/php/framework/3.0.0/classes/controller.php(654): Controller-&gt;actionController()<br />
+#14 /srv/packages/php/framework/3.0.0/classes/controller.php(840): Controller-&gt;processControllers()<br />
+#15 /srv/packages/php/framework/3.0.0/classes/controller/site.php(128): Controller-&gt;getView()<br />
+#16 /srv/packages/php/framework/3.0.0/classes/applicationcontroller.php(37): SiteController-&gt;getView()<br />
+#17 /srv/be/index.php(100): ApplicationController-&gt;Run()<br />
+#18 {main}			</div>
+					</div>
+	</div>
+	<div id="page-empty"></div>
+</div>
+<div id="page-footer">
+	<div>© Copyright 2009 – 2010 Radical Computing Corp.</div>
+</div>
+
+
+</body><canvas id="fxdriver-screenshot-canvas" style="display: none;" width="1920" height="969"></canvas></html>
