@@ -49,6 +49,20 @@ public class BaseTest {
         clearBrowserCookies();
     }
 
+//    @After
+//    public void tearDown() throws IOException {
+//        screenshot();
+//    }
+//
+//    @Attachment(type = "image/png")
+//    public byte[] screenshot() throws IOException {
+//        File screenshot = Screenshots.takeScreenShotAsFile();
+//        return Files.toByteArray(screenshot);
+//    }
+
+
+
+
     @After
     public void tearDown() throws IOException {
         File lastSelenideScreenshot = Screenshots.getLastScreenshot();
